@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI高考数学冲刺能力诊断报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        :root {
+            --primary: #FE1110;
+            --primary-light: rgba(254, 17, 16, 0.1);
+            --secondary: #1E40AF;
+            --dark: #1F2937;
+        }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(254,17,16,0.08) 0%, rgba(255,255,255,1) 100%);
+        }
+        .highlight {
+            color: var(--primary);
+            font-weight: 900;
+        }
+        .error-text {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .success-text {
+            color: #10B981;
+            font-weight: 700;
+        }
+        .card-gradient {
+            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,1) 100%);
+            border-left: 4px solid var(--primary);
+        }
+        .progress-bar {
+            height: 12px;
+            border-radius: 6px;
+            background-color: #e9ecef;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, #F59E0B 100%);
+            transition: width 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .knowledge-card {
+            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            border-top: 3px solid transparent;
+        }
+        .knowledge-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- 封面 -->
+    <div class="min-h-screen flex flex-col justify-center items-center p-6 text-center hero-bg relative overflow-hidden">
+        <!-- 装饰元素 -->
+        <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-red-100 opacity-20"></div>
+        <div class="absolute bottom-1/4 right-20 w-48 h-48 rounded-full bg-blue-100 opacity-15"></div>
+        <div class="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-yellow-100 opacity-15"></div>
+        
+        <div class="relative z-10 w-full max-w-5xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 text-gray-900 leading-tight">
+                <span class="highlight">高考数学</span><br>
+                冲刺能力诊断报告
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-12">该报告由DeepSeek根据您提交的答案生成</p>
+<p class="text-xl md:text-2xl text-gray-600 mb-12">这份报告旨在精准剖析您本次数学测试的表现，助您在最后冲刺阶段，高效聚焦，精准发力</p>
+            
+            <div class="w-full mx-auto bg-white rounded-2xl shadow-2xl p-10 card-gradient transform transition-all hover:shadow-3xl">
+                <div class="text-left">
+                    <h2 class="text-3xl font-black mb-6">核心诊断结果</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                       <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-red-200 pulse">
+    <p class="text-gray-500 text-lg">整体正确率</p>
+    <p class="text-5xl font-black highlight mt-2">42.86%</p>
+    <p class="text-gray-600 mt-2">核心薄弱点：函数性质(38.1%)</p>
+</div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-blue-200">
+                            <p class="text-gray-500 text-lg">优势知识点</p>
+                            <p class="text-3xl font-black text-blue-600 mt-2">统计</p>
+                            <p class="text-gray-600 mt-2">正确率62.5%</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-yellow-200">
+                            <p class="text-gray-500 text-lg">薄弱环节</p>
+                            <p class="text-3xl font-black highlight mt-2">函数性质</p>
+                            <p class="text-gray-600 mt-2">正确率仅38.1%</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                        <p class="text-red-800 font-medium">⚠️ 您的函数性质知识点表现明显低于平均水平，是冲刺阶段最需要强化的重点领域！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 整体表现分析 -->
+    <div class="py-20 px-6 max-w-6xl mx-auto scroll-animate">
+        <h2 class="text-4xl font-black mb-12 text-center">
+            <span class="section-title">整体表现分析</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <!-- 难度表现雷达图 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-chart-radar text-red-500"></i>
+                    </div>
+                    各难度等级表现
+                </h3>
+                <canvas id="difficultyRadar" height="300"></canvas>
+                <div class="mt-6 grid grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">简单题</p>
+                        <p class="text-2xl font-black">47.62%</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">中等题</p>
+                        <p class="text-2xl font-black">45.45%</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">高难题</p>
+                        <p class="text-2xl font-black">36.36%</p>
+                    </div>
+                </div>
+                <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                    <p class="text-blue-800">🎯 您的简单题正确率仍有提升空间，建议加强基础题型的准确性和速度训练</p>
+                </div>
+            </div>
+            
+            <!-- 知识点分布气泡图 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-braille text-blue-500"></i>
+                    </div>
+                    知识点掌握分布
+                </h3>
+                <canvas id="knowledgeBubble" height="300"></canvas>
+                <div class="mt-6 flex justify-between">
+                    <div>
+                        <span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                        <span class="text-sm">掌握良好</span>
+                    </div>
+                    <div>
+                        <span class="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                        <span class="text-sm">需要加强</span>
+                    </div>
+                    <div>
+                        <span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                        <span class="text-sm">重点突破</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 详细题目分析 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                    <i class="fas fa-list-ol text-purple-500"></i>
+                </div>
+                详细题目分析
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-4 font-bold">题目</th>
+                            <th class="text-left py-4 font-bold">知识点</th>
+                            <th class="text-left py-4 font-bold">难度</th>
+                            <th class="text-left py-4 font-bold">结果</th>
+                            <th class="text-left py-4 font-bold">分析</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">1</td>
+                            <td class="py-4">函数性质</td>
+                            <td class="py-4">简单</td>
+                            <td class="py-4 error-text font-bold">错误</td>
+                            <td class="py-4 text-sm text-gray-600">基础概念题失分，需强化定义理解</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">5</td>
+                            <td class="py-4">函数性质</td>
+                            <td class="py-4">高难</td>
+                            <td class="py-4 error-text font-bold">错误</td>
+                            <td class="py-4 text-sm text-gray-600">复合函数综合应用能力待提高</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">16</td>
+                            <td class="py-4">数列</td>
+                            <td class="py-4">高难</td>
+                            <td class="py-4 success-text font-bold">正确</td>
+                            <td class="py-4 text-sm text-gray-600">展现了良好的递推思维能力</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">19</td>
+                            <td class="py-4">立体几何</td>
+                            <td class="py-4">高难</td>
+                            <td class="py-4 error-text font-bold">错误</td>
+                            <td class="py-4 text-sm text-gray-600">空间想象能力需加强训练</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">29</td>
+                            <td class="py-4">指数对数</td>
+                            <td class="py-4">高难</td>
+                            <td class="py-4 success-text font-bold">正确</td>
+                            <td class="py-4 text-sm text-gray-600">复杂变形处理能力优秀</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 flex justify-between items-center">
+                <p class="text-sm text-gray-500">* 完整题目分析报告共84题，此处展示关键题目</p>
+                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">
+                    查看全部题目分析
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 知识点深度分析 -->
+    <div class="py-20 px-6 max-w-6xl mx-auto bg-gray-50 scroll-animate">
+        <h2 class="text-4xl font-black mb-12 text-center">
+            <span class="section-title">知识点深度分析</span>
+        </h2>
+        
+        <!-- 知识点掌握情况 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <!-- 重点突破知识点 -->
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500 transform hover:rotate-1">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-exclamation-triangle text-2xl text-red-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black">函数性质</h3>
+                        <p class="text-gray-500">正确率: 38.1%</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">简单题</span>
+                        <span class="font-bold">40%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">高难题</span>
+                        <span class="font-bold">33.3%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33.3%"></div>
+                    </div>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <p class="text-red-800 font-medium">⚠️ 显著低于平均水平！选择题错误率高达61.9%</p>
+                </div>
+            </div>
+            
+            <!-- 需要加强知识点 -->
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-yellow-500 transform hover:-rotate-1">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-yellow-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-brain text-2xl text-yellow-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black">立体几何</h3>
+                        <p class="text-gray-500">正确率: 50%</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">填空题</span>
+                        <span class="font-bold">33.3%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33.3%"></div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">高难题</span>
+                        <span class="font-bold">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <p class="text-yellow-800">空间想象能力和计算准确性需要系统训练</p>
+                </div>
+            </div>
+            
+            <!-- 掌握良好知识点 -->
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-green-500">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-chart-line text-2xl text-green-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black">统计</h3>
+                        <p class="text-gray-500">正确率: 62.5%</p>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">简单题</span>
+                        <span class="font-bold">80%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">高难题</span>
+                        <span class="font-bold">50%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%"></div>
+                    </div>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <p class="text-green-800">✨ 您的优势领域，可适当减少复习时间</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 知识点关联分析 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                    <i class="fas fa-project-diagram text-purple-500"></i>
+                </div>
+                知识点关联分析
+            </h3>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <h4 class="text-lg font-bold mb-4 text-red-600">薄弱环节关联</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></span>
+                            <span><span class="font-bold">函数性质</span>薄弱影响了<span class="font-bold">导数</span>应用题的得分</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></span>
+                            <span><span class="font-bold">立体几何</span>空间感不足导致<span class="font-bold">解析几何</span>综合题失分</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-lg font-bold mb-4 text-green-600">优势迁移建议</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="inline-block w-2 h-2 rounded-full bg-green-500 mt-2 mr-3"></span>
+                            <span>将<span class="font-bold">统计</span>的数据处理能力迁移到<span class="font-bold">概率</span>问题</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-block w-2 h-2 rounded-full bg-green-500 mt-2 mr-3"></span>
+                            <span><span class="font-bold">数列</span>的递推思维可用于<span class="font-bold">函数</span>周期性问题</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-center">
+             
+            </div>
+        </div>
+    </div>
+
+    <!-- 个性化冲刺方案 -->
+    <div class="py-20 px-6 max-w-6xl mx-auto scroll-animate">
+        <h2 class="text-4xl font-black mb-12 text-center">
+            <span class="section-title">个性化冲刺方案</span>
+        </h2>
+        
+        <!-- 三维提升策略 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500 h-full">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-bullseye text-2xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-black">重点突破计划</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">每日20分钟</span>函数专项：单调性、奇偶性、周期性强化训练</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">每周2次</span>立体几何空间想象训练：三视图与展开图转换</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-red-500 mt-2 mr-3"></span>
+                        <span>建立<span class="font-bold">函数性质错题本</span>，分类整理高频错误类型</span>
+                    </li>
+                </ul>
+                <div class="mt-6 bg-red-50 p-4 rounded-lg">
+                    <p class="text-red-800 font-medium">⏰ 建议时间分配：占总复习时间40%</p>
+                </div>
+            </div>
+            
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-blue-500 h-full">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-clock text-2xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-black">时间优化策略</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">前30分钟</span>：完成所有简单题(准确率目标95%)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">中间50分钟</span>：攻克中等题+优势高难题</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">最后40分钟</span>：突破薄弱高难题+检查</span>
+                    </li>
+                </ul>
+                <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                    <p class="text-blue-800 font-medium">⏱️ 每周3次全真模拟，严格计时</p>
+                </div>
+            </div>
+            
+            <div class="knowledge-card bg-white rounded-2xl shadow-xl p-8 border-t-4 border-green-500 h-full">
+                <div class="flex items-center mb-6">
+                    <div class="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-lightbulb text-2xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-black">思维提升训练</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-green-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">一题多解</span>：对典型题目尝试3种不同解法</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-green-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">逆向思维</span>：从选项反推验证的技巧训练</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-2 h-2 rounded-full bg-green-500 mt-2 mr-3"></span>
+                        <span><span class="font-bold">特殊值法</span>：快速解决选择题的实战技巧</span>
+                    </li>
+                </ul>
+                <div class="mt-6 bg-green-50 p-4 rounded-lg">
+                    <p class="text-green-800 font-medium">💡 每日选择2道题进行深度思维训练</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 每周计划表示例 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                    <i class="fas fa-calendar-alt text-purple-500"></i>
+                </div>
+                冲刺阶段周计划建议
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-4 font-bold">时间段</th>
+                            <th class="text-left py-4 font-bold">周一/三/五</th>
+                            <th class="text-left py-4 font-bold">周二/四</th>
+                            <th class="text-left py-4 font-bold">周六</th>
+                            <th class="text-left py-4 font-bold">周日</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">早晨30min</td>
+                            <td class="py-4">函数性质<br>基础训练</td>
+                            <td class="py-4">立体几何<br>基础训练</td>
+                            <td class="py-4">错题回顾</td>
+                            <td class="py-4">公式记忆</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">晚间60min</td>
+                            <td class="py-4">函数综合<br>应用训练</td>
+                            <td class="py-4">立体几何<br>综合训练</td>
+                            <td class="py-4">全真模拟</td>
+                            <td class="py-4">专题突破</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-4 font-medium">睡前20min</td>
+                            <td class="py-4">错题整理</td>
+                            <td class="py-4">思维训练</td>
+                            <td class="py-4">放松复习</td>
+                            <td class="py-4">周总结</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 bg-yellow-50 p-4 rounded-lg">
+                <p class="text-yellow-800">📌 根据您的个人情况定制，可随进度动态调整</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 心理与应试策略 -->
+    <div class="py-20 px-6 max-w-6xl mx-auto bg-gray-50 scroll-animate">
+        <h2 class="text-4xl font-black mb-12 text-center">
+            <span class="section-title">心理与应试策略</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-heart text-blue-500"></i>
+                    </div>
+                    心态调整建议
+                </h3>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">建立正确预期</h4>
+                            <p class="text-gray-700">接受不可能所有题目都会做的事实，您的目标是最大化得分而非完美</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">错误重构思维</h4>
+                            <p class="text-gray-700">把每次错误视为发现漏洞的机会，而非失败。您已找到42处可提升点！</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">微小进步庆祝</h4>
+                            <p class="text-gray-700">记录每个知识点的进步，函数性质从38%提升到45%就是胜利</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-trophy text-green-500"></i>
+                    </div>
+                    考场应对策略
+                </h3>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-flag text-green-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">题目分级策略</h4>
+                            <p class="text-gray-700">快速扫描后分为：必得分题(√)、努力题(?)和放弃题(×)，优先保证√类题目</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-flag text-green-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">应急解决方案</h4>
+                            <p class="text-gray-700">遇到卡壳时：深呼吸→标记→跳过，全部做完后再回头思考</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-flag text-green-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">检查优先级</h4>
+                            <p class="text-gray-700">先检查薄弱知识点的题目，再检查计算密集型题目</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-red-500 to-yellow-500 rounded-2xl shadow-xl p-8 text-white">
+            <h3 class="text-2xl font-bold mb-4">您的专属激励语</h3>
+            <p class="text-xl mb-6">"在最后的冲刺阶段，您已经成功定位了<span class="font-black underline">42处精准提升点</span>，这是大多数考生无法获得的优势。每一次针对性训练都在缩短与理想分数的距离！"</p>
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                    <i class="fas fa-fire text-xl"></i>
+                </div>
+                <p class="flex-1">记住：高考数学不是要您解决所有问题，而是在有限时间内最大化展现您的数学能力！</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 总结与展望 -->
+    <div class="py-20 px-6 max-w-6xl mx-auto scroll-animate">
+        <h2 class="text-4xl font-black mb-12 text-center">
+            <span class="section-title">总结与展望</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+       <div class="bg-white rounded-2xl shadow-xl p-8">
+    <h3 class="text-2xl font-bold mb-6">2周进步预测</h3>
+    <canvas id="progressChart" height="300"></canvas>
+
+    <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+        <div>
+            <p class="text-sm text-gray-500">当前</p>
+            <p class="text-2xl font-black highlight">42.86%</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">1周后</p>
+            <p class="text-2xl font-black text-blue-600">48%</p>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500">2周后</p>
+            <p class="text-2xl font-black text-green-600">53%</p>
+        </div>
+    </div>
+</div>
+            
+            <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                <h3 class="text-2xl font-bold mb-6">您的数学能力画像</h3>
+                <div class="flex-1 flex items-center justify-center">
+                    <div class="relative w-64 h-64">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-48 h-48 rounded-full border-4 border-gray-200 flex items-center justify-center floating">
+                               
+                            </div>
+                        </div>
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            函数性质38%
+                        </div>
+                        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            统计62%
+                        </div>
+                        <div class="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            几何50%
+                        </div>
+                        <div class="absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            代数45%
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-50 p-4 rounded-lg">
+                    <p class="text-gray-700">您的<span class="font-bold">数据分析能力</span>突出，<span class="font-bold">空间想象力</span>有待加强，<span class="font-bold">代数运算</span>稳定性需要提高</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-xl p-10 text-center">
+            <h3 class="text-3xl font-black mb-6">写在最后</h3>
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                这份报告为您揭示了<span class="highlight font-bold">84道题目</span>中的<span class="highlight font-bold">42个精准提升机会</span>，
+                覆盖<span class="highlight font-bold">9个核心知识点</span>。祝你在接下来的复习中效率倍增，信心满满，最终在考场上发挥出自己的最佳水平！
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                
+            </div>
+            <div class="mt-10 pt-6 border-t border-gray-200">
+                <p class="text-gray-500">报告生成时间: <span id="currentDate"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 设置当前日期
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('zh-CN');
+        
+        // 滚动动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollElements = document.querySelectorAll('.scroll-animate');
+            
+            const elementInView = (el) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight * 0.75)
+                );
+            };
+            
+            const displayScrollElement = (element) => {
+                element.classList.add('animate-in');
+            };
+            
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el)) {
+                        displayScrollElement(el);
+                    }
+                });
+            };
+            
+            // 初始化检查
+            handleScrollAnimation();
+            
+            // 滚动事件监听
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation();
+            });
+            
+            // 图表初始化
+            initCharts();
+        });
+        
+        function initCharts() {
+            // 难度雷达图
+            const difficultyCtx = document.getElementById('difficultyRadar').getContext('2d');
+            new Chart(difficultyCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['简单题', '中等题', '高难题'],
+                    datasets: [{
+                        label: '您的表现',
+                        data: [47.62, 45.45, 36.36],
+                        backgroundColor: 'rgba(254, 17, 16, 0.2)',
+                        borderColor: 'rgba(254, 17, 16, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(254, 17, 16, 1)',
+                        pointRadius: 4
+                    }, {
+                        label: '平均水平',
+                        data: [65, 50, 30],
+                        backgroundColor: 'rgba(30, 64, 175, 0.2)',
+                        borderColor: 'rgba(30, 64, 175, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(30, 64, 175, 1)',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+            
+            // 知识点气泡图
+            const bubbleCtx = document.getElementById('knowledgeBubble').getContext('2d');
+            new Chart(bubbleCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        {
+                            label: '函数性质',
+                            data: [{x: 5, y: 38, r: 20}],
+                            backgroundColor: 'rgba(254, 17, 16, 0.7)'
+                        },
+                        {
+                            label: '三角函数',
+                            data: [{x: 3, y: 50, r: 15}],
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        },
+                        {
+                            label: '导数',
+                            data: [{x: 4, y: 50, r: 15}],
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        },
+                        {
+                            label: '统计',
+                            data: [{x: 6, y: 62, r: 15}],
+                            backgroundColor: 'rgba(16, 185, 129, 0.7)'
+                        },
+                        {
+                            label: '立体几何',
+                            data: [{x: 5, y: 50, r: 15}],
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        },
+                        {
+                            label: '解析几何',
+                            data: [{x: 4, y: 50, r: 15}],
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '题目数量'
+                            },
+                            min: 0,
+                            max: 10
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '正确率(%)'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: 正确率 ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 进步预测图
+            const progressCtx = document.getElementById('progressChart').getContext('2d');
+            new Chart(progressCtx, {
+               type: 'line',
+        data: {
+            labels: ['当前', '3天后', '1周后', '2周后'],
+            datasets: [{
+                label: '预期进步曲线',
+                data: [42.86, 46, 48, 53],
+                borderColor: '#FE1110',
+                borderWidth: 3,
+                tension: 0.3,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 40,
+                    max: 60
+                }
+            }
+        }
+     });
+        
+        }
+    </script>
+
+</body>
+</html>
